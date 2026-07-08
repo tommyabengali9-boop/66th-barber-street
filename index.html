@@ -5,6 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>66th Barber Street — Salon de coiffure à Le Havre</title>
 <meta name="description" content="66th Barber Street, salon de coiffure et barbier au 66 Av. René Coty, Le Havre. Réservation en ligne, galerie de coupes, ouvert 7j/7 de 10h à 20h.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "66th Barber Street",
+  "image": "https://66th-barber-street.netlify.app/images/coupe-1.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "66 Avenue René Coty",
+    "addressLocality": "Le Havre",
+    "postalCode": "76600",
+    "addressCountry": "FR"
+  },
+  "telephone": "+33769571297",
+  "url": "https://66th-barber-street.netlify.app/",
+  "priceRange": "10€-50€",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "10:00",
+    "closes": "20:00"
+  }]
+}
+</script>
+<!-- Note : pas de note/avis dans ce balisage tant que le chiffre "4,8/5 · 35 avis" affiché plus bas n'a pas été vérifié sur la vraie fiche Google du salon. À corriger avant mise en ligne définitive si besoin. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -263,6 +288,36 @@
     .mobile-nav{display:block;}
     .booking-grid,.location-grid{grid-template-columns:1fr;}
   }
+
+  /* CONTACT FORM */
+  .contact-section{background:#fff;}
+  .contact-form{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .contact-form input, .contact-form textarea{
+    width:100%;padding:14px 16px;border-radius:10px;
+    border:1px solid #e6ddc4;font-family:inherit;font-size:15px;
+    background:var(--cream);
+  }
+  .contact-form .form-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .contact-form .form-row input{flex:1;min-width:180px;}
+  .contact-form .hidden-field{position:absolute;left:-9999px;}
+  .contact-form button{align-self:flex-start;}
+  .form-confirm{display:none;text-align:center;padding:40px 24px;max-width:560px;margin:0 auto;}
+  .form-confirm.show{display:block;}
+
+  /* COOKIE BANNER */
+  .cookie-banner{
+    position:fixed;left:16px;right:16px;bottom:-200px;z-index:2000;
+    background:var(--black);color:var(--cream);
+    border:1px solid rgba(201,162,75,.35);border-radius:var(--radius);
+    padding:18px 22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    max-width:760px;margin:0 auto;transition:bottom .4s ease;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  .cookie-banner.show{bottom:16px;}
+  .cookie-banner p{font-size:13px;color:#cfc9b8;max-width:480px;}
+  .cookie-banner a{color:var(--gold-light);text-decoration:underline;}
+  .cookie-actions{display:flex;gap:10px;flex-shrink:0;}
+  .cookie-actions .btn{padding:10px 20px;font-size:13px;}
 </style>
 </head>
 <body>
@@ -375,6 +430,30 @@
   </div>
 </section>
 
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="eyebrow">Contact</div>
+      <h2>Une question ? Écrivez-nous</h2>
+      <p>Réponse sous 24h. Pour réserver un créneau, utilise plutôt le bouton "Réserver en ligne" plus haut.</p>
+    </div>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden-field"><label>Ne pas remplir : <input name="bot-field"></label></p>
+      <div class="form-row">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="tel" name="telephone" placeholder="Téléphone" required>
+      </div>
+      <textarea name="message" placeholder="Votre message" rows="4" required></textarea>
+      <button class="btn" type="submit">Envoyer</button>
+    </form>
+    <div class="form-confirm" id="formConfirm">
+      <h3 style="margin-bottom:10px;">Message envoyé ✓</h3>
+      <p class="muted">Merci, on te répond au plus vite.</p>
+    </div>
+  </div>
+</section>
+
 <section id="acces">
   <div class="section-inner location-grid">
     <div>
@@ -396,7 +475,20 @@
 <footer>
   <div class="foot-logo">66th Barber Street</div>
   <div>66 Av. René Coty, 76600 Le Havre · 07 69 57 12 97</div>
+  <div style="margin-top:14px;">
+    <a href="legal.html#mentions" style="text-decoration:underline;">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="legal.html#confidentialite" style="text-decoration:underline;">Politique de confidentialité</a>
+  </div>
 </footer>
+
+<div class="cookie-banner" id="cookieBanner">
+  <p>Ce site utilise des cookies de mesure d'audience pour comprendre sa fréquentation. <a href="legal.html#confidentialite">En savoir plus</a></p>
+  <div class="cookie-actions">
+    <button id="cookieRefuse" class="btn outline">Refuser</button>
+    <button id="cookieAccept" class="btn">Accepter</button>
+  </div>
+</div>
 
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lbClose">✕</button>
@@ -495,6 +587,63 @@
     statusText.textContent = `Fermé · Ouvre à 10:00`;
     bookingStatusText.textContent = `Fermé — réouverture à 10:00`;
     heroHours.textContent = "Fermé · ouvre à 10:00";
+  }
+
+  // ---- Formulaire de contact (Netlify Forms, envoi en AJAX) ----
+  const contactForm = document.getElementById('contactForm');
+  const formConfirm = document.getElementById('formConfirm');
+  function encodeForm(data){
+    return Object.keys(data).map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])).join("&");
+  }
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(contactForm);
+    const payload = {};
+    formData.forEach((v,k) => payload[k] = v);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeForm(payload),
+    })
+      .then(() => {
+        contactForm.style.display = 'none';
+        formConfirm.classList.add('show');
+      })
+      .catch(() => alert("Une erreur est survenue, réessaie ou appelle-nous directement."));
+  });
+
+  // ---- Analytics + bannière cookies (désactivé tant que GA_MEASUREMENT_ID est vide) ----
+  const GA_MEASUREMENT_ID = ""; // TODO: coller ici l'ID Google Analytics (ex. "G-XXXXXXX") une fois le compte créé
+  const cookieBanner = document.getElementById('cookieBanner');
+
+  function loadAnalytics(){
+    if (!GA_MEASUREMENT_ID) return;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
+  }
+
+  if (GA_MEASUREMENT_ID) {
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent === 'accepted') {
+      loadAnalytics();
+    } else if (consent !== 'refused') {
+      cookieBanner.classList.add('show');
+    }
+    document.getElementById('cookieAccept').addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      cookieBanner.classList.remove('show');
+      loadAnalytics();
+    });
+    document.getElementById('cookieRefuse').addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'refused');
+      cookieBanner.classList.remove('show');
+    });
   }
 </script>
 
